@@ -4,12 +4,13 @@
   "main": "src/index.js",
   "private": true,
   "scripts": {
-    "build": "yarn clean && webpack && tree public",
+    "build": "yarn clean && webpack && tree build",
     "clean": "rimraf build",
     "build-and-serve": "yarn build && node build/server",
-    "dev": "nodemon --exec \"yarn build-and-serve\" -w src index* webpack*"
+    "dev": "nodemon -i build --exec \"yarn build-and-serve\" -w src"
   },
   "devDependencies": {
+    "fork-ts-checker-webpack-plugin": "^6.0.8",
     "html-webpack-plugin": "^4.5.1",
     "nodemon": "^2.0.7",
     "raw-loader": "^4.0.2",

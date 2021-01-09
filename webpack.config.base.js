@@ -10,11 +10,11 @@ const outputFolderPath = resolve(__dirname, "build");
 const clientConfig = {
   context: __dirname,
   entry: {
-    ...moduleNames.reduce((entries, { name, entry }) => {
+    ...moduleNames.reduce((entries, { name, root }) => {
       return {
         ...entries,
         [name]: {
-          import: entry,
+          import: resolve(root, "client.tsx"),
           filename: join("public", name, "index.js"),
         },
       };
@@ -39,7 +39,7 @@ const clientConfig = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.[jt]sx?$/,
         exclude: /node_modules/,
         use: [
           {
@@ -71,8 +71,33 @@ const serverConfig = {
   node: {
     __dirname: false,
   },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
+  },
   entry: {
     server: "./src/server.ts",
+    ...moduleNames.reduce((entries, { name, root }) => {
+      return {
+        ...entries,
+        [name]: {
+          import: resolve(root, "server.tsx"),
+          filename: join(name, "server.js"),
+        },
+      };
+    }, {}),
+  },
+  module: {
+    rules: [
+      {
+        test: /\.[jt]sx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "ts-loader",
+          },
+        ],
+      },
+    ],
   },
   output: {
     path: outputFolderPath,
