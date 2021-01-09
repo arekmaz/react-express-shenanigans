@@ -3,6 +3,7 @@ const webpack = require("webpack");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const moduleNames = require("./moduleNames");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 const outputFolderPath = resolve(__dirname, "build");
 
@@ -44,6 +45,9 @@ const clientConfig = {
         use: [
           {
             loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+            },
           },
         ],
       },
@@ -62,6 +66,7 @@ const clientConfig = {
           base: "/public",
         })
     ),
+    new ForkTsCheckerWebpackPlugin(),
   ],
 };
 
@@ -94,6 +99,9 @@ const serverConfig = {
         use: [
           {
             loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+            },
           },
         ],
       },
@@ -115,6 +123,7 @@ const serverConfig = {
       }),
     ],
   },
+  plugins: [new ForkTsCheckerWebpackPlugin()],
 };
 
 module.exports = [clientConfig, serverConfig];
