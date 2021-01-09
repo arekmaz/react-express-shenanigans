@@ -6,10 +6,12 @@
   "scripts": {
     "build": "yarn clean && webpack && tree public",
     "clean": "rimraf build",
-    "build-and-serve": "yarn build && node build/server"
+    "build-and-serve": "yarn build && node build/server",
+    "dev": "nodemon --exec \"yarn build-and-serve\" -w src index* webpack*"
   },
   "devDependencies": {
     "html-webpack-plugin": "^4.5.1",
+    "nodemon": "^2.0.7",
     "raw-loader": "^4.0.2",
     "rimraf": "^3.0.2",
     "terser-webpack-plugin": "^5.1.1",

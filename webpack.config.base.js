@@ -57,9 +57,9 @@ const clientConfig = {
       ({ name, template }) =>
         new HTMLWebpackPlugin({
           template: `!!raw-loader!${template}`,
-          filename: join("public", name, "index.ejs"),
+          filename: join("templates", `${name}.ejs`),
           chunks: [name],
-          base: ".",
+          base: "/public",
         })
     ),
   ],
