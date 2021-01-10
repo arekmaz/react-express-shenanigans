@@ -4,6 +4,7 @@ const HTMLWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const moduleNames = require("./moduleNames");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 
 const outputFolderPath = resolve(__dirname, "build");
 
@@ -41,6 +42,7 @@ const clientConfig = {
         commons: {
           name: "public/chunks",
           chunks: "all",
+          // filename: "public/commons_[fullhash].js",
         },
       },
     },
@@ -76,6 +78,9 @@ const clientConfig = {
     ),
     new ForkTsCheckerWebpackPlugin(),
     new webpack.BannerPlugin({ banner: "this is a random banner" }),
+    new CompressionPlugin({
+      include: /\.js$/,
+    }),
   ],
 };
 

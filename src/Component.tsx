@@ -12,11 +12,7 @@ export default function Component({ title, url }: ComponentProps) {
     <>
       <button onClick={() => alert(title)}>{title}</button>
       <h1>Dynamic label: {label}</h1>
-      <ul>
-        {url.map((header) => (
-          <li key={header}>{header}</li>
-        ))}
-      </ul>
+      <h1>Headers sent: {url.length}</h1>
     </>
   );
 }
