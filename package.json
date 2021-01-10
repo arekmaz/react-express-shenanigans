@@ -7,7 +7,7 @@
     "build": "yarn clean && webpack && tree build",
     "clean": "rimraf build",
     "build-and-serve": "yarn build && node build/server",
-    "dev": "nodemon -i build --exec \"yarn build-and-serve\" -w src"
+    "dev": "nodemon  -i \"build/**/*\" --exec \"yarn build-and-serve\" -w . -w src -e \"*\" -V"
   },
   "devDependencies": {
     "fork-ts-checker-webpack-plugin": "^6.0.8",
@@ -27,6 +27,7 @@
     "@types/ramda": "^0.27.34",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@types/webpack": "^4.41.25",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "ramda": "^0.27.1",

@@ -16,7 +16,7 @@ function renderComponent(name: string, getProps?: (req: Request) => unknown) {
   const serverRender = require(`./${name}/server`).default;
   return (req: Request, res: Response) => {
     const props = getProps ? getProps(req) : { url: req.url };
-    res.render("notes", {
+    res.render(name, {
       props,
       preloadedHTML: serverRender(props),
       title: "Notes",
@@ -32,12 +32,13 @@ app.get(
   }))
 );
 
-app.get("/users", (req, res) => {
-  res.render("users", {
-    preloadedHTML: "<strong>test html</strong>",
-    title: "Users",
-  });
-});
+app.get(
+  "/users",
+  renderComponent("users", ({ rawHeaders }) => ({
+    title: "Users from server",
+    url: rawHeaders,
+  }))
+);
 
 app.listen(PORT, () => {
   console.log(`server listening at localhost:${PORT}`);

@@ -16,7 +16,7 @@ const clientConfig = {
         ...entries,
         [name]: {
           import: resolve(root, "client.tsx"),
-          filename: join("public", name, "index.js"),
+          filename: join("public", name, "index_[fullhash].js"),
         },
       };
     }, {}),
@@ -31,11 +31,19 @@ const clientConfig = {
         extractComments: false,
         terserOptions: {
           format: {
-            comments: false,
+            // comments: false,
           },
         },
       }),
     ],
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          name: "public/chunks",
+          chunks: "all",
+        },
+      },
+    },
   },
   module: {
     rules: [
@@ -67,6 +75,7 @@ const clientConfig = {
         })
     ),
     new ForkTsCheckerWebpackPlugin(),
+    new webpack.BannerPlugin({ banner: "this is a random banner" }),
   ],
 };
 
@@ -123,7 +132,10 @@ const serverConfig = {
       }),
     ],
   },
-  plugins: [new ForkTsCheckerWebpackPlugin()],
+  plugins: [
+    new ForkTsCheckerWebpackPlugin(),
+    new webpack.BannerPlugin({ banner: "this is a random banner" }),
+  ],
 };
 
 module.exports = [clientConfig, serverConfig];
