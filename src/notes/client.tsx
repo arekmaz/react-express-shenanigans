@@ -1,5 +1,5 @@
-import { hydrate } from "react-dom";
-import Component, { ComponentProps } from "../Component";
+import { hydrate, render } from "react-dom";
+import Notes, { NotesProps } from "./Notes";
 
 declare global {
   interface Window {
@@ -7,7 +7,12 @@ declare global {
   }
 }
 
-const initialProps = window.__initialProps as ComponentProps;
+const initialProps = window.__initialProps as NotesProps;
 console.log({ initialProps });
 
-hydrate(<Component {...initialProps} />, document.getElementById("root"));
+// render(<Notes {...initialProps} />, document.getElementById("root"));
+hydrate(
+  <Notes {...initialProps} />,
+  // document.querySelector("[data-reactroot]")
+  document.querySelector("#root")
+);

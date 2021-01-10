@@ -8,6 +8,7 @@ declare global {
 }
 
 const initialProps = window.__initialProps as ComponentProps;
+
 console.log({ initialProps });
 
 hydrate(<Component {...initialProps} />, document.getElementById("root"));
