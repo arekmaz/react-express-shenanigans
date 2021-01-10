@@ -25,6 +25,7 @@ const clientConfig = {
   },
   output: {
     path: outputFolderPath,
+    chunkFilename: "public/chunks/[name]_[fullhash].js",
   },
   optimization: {
     minimize: true,
@@ -38,16 +39,6 @@ const clientConfig = {
         },
       }),
     ],
-    splitChunks: {
-      chunks: "all",
-      cacheGroups: {
-        commons: {
-          name: "public/chunks",
-          chunks: "all",
-          // filename: "public/commons_[fullhash].js",
-        },
-      },
-    },
   },
   module: {
     rules: [
