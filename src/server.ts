@@ -2,12 +2,15 @@ import { resolve, join } from "path";
 import express, { Request, Response } from "express";
 import compression from "compression";
 import gzipStatic from "connect-gzip-static";
+import morgan from "morgan";
 
 const app = express();
-const publicPath = resolve(__dirname, "public");
+const publicPath = resolve(__dirname, "..", "public");
+
+app.use(morgan(process.env.NODE_ENV === "production" ? "tiny" : "dev"));
 
 app.set("view engine", "ejs");
-app.set("views", join(__dirname, "templates"));
+app.set("views", join(__dirname, "..", "templates"));
 app.engine("ejs", require("ejs").__express);
 const year = 31536000 * 1000;
 

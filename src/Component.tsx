@@ -5,7 +5,9 @@ export type ComponentProps = { title: string; url: string[] };
 export default function Component({ title, url }: ComponentProps) {
   const [label, setLabel] = useState("default label");
   useEffect(() => {
-    import("./AsyncComp").then(({ label }) => setLabel(label));
+    import(/* webpackPrefetch: true */ "./AsyncComp").then(({ label }) =>
+      setLabel(label)
+    );
   }, []);
 
   return (

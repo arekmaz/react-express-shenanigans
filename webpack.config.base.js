@@ -5,6 +5,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 const moduleNames = require("./moduleNames");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 
 const outputFolderPath = resolve(__dirname, "build");
 
@@ -38,6 +39,7 @@ const clientConfig = {
       }),
     ],
     splitChunks: {
+      chunks: "all",
       cacheGroups: {
         commons: {
           name: "public/chunks",
@@ -81,6 +83,13 @@ const clientConfig = {
     new CompressionPlugin({
       include: /\.js$/,
     }),
+    new FaviconsWebpackPlugin({
+      logo: resolve(__dirname, "favicon.svg"),
+      cache: true,
+      outputPath: "public/favicons",
+      publicPath: "/public/",
+      prefix: "favicons",
+    }),
   ],
 };
 
@@ -100,7 +109,7 @@ const serverConfig = {
         ...entries,
         [name]: {
           import: resolve(root, "server.tsx"),
-          filename: join(name, "server.js"),
+          filename: join(name, "server_[fullhash].js"),
         },
       };
     }, {}),
@@ -122,7 +131,9 @@ const serverConfig = {
     ],
   },
   output: {
-    path: outputFolderPath,
+    path: join(outputFolderPath, "server"),
+    filename: "index.js",
+    chunkFilename: "chunks/[name]_[fullhash].js",
   },
   optimization: {
     minimize: true,
