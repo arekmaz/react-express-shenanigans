@@ -4,10 +4,10 @@
   "main": "src/index.js",
   "private": true,
   "scripts": {
-    "build": "yarn clean && webpack && tree build",
+    "build": "yarn clean && webpack --mode=production && tree build",
+    "build:dev": "yarn clean && webpack --mode=development && tree build",
     "clean": "rimraf build",
-    "build-and-serve": "yarn build && node build/server",
-    "dev": "cross-env DEBUG=\"connect:gzip-static\" nodemon  -i \"build/**/*\" --exec \"yarn build-and-serve\" -w . -w src -e \"*\" -V"
+    "dev": "cross-env DEBUG=\"connect:gzip-static\" nodemon  -i \"build/**/*\" --exec \"yarn build:dev && node build/server\" -w . -w src -e \"*\" -V"
   },
   "devDependencies": {
     "compression-webpack-plugin": "^7.1.1",
