@@ -1,6 +1,11 @@
-import { renderToString } from "react-dom/server";
 import Component, { ComponentProps } from "../Component";
+import { Request } from "express";
 
-export default (props: ComponentProps) => {
-  return renderToString(<Component {...props} />);
+export default (req: Request) => {
+  const props: ComponentProps = {
+    title: "title prop",
+    url: req.rawHeaders,
+  };
+
+  return { props, element: <Component {...props} />, title: "Users" };
 };

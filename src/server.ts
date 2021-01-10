@@ -30,11 +30,15 @@ function renderComponent(name: string) {
   const serverRender = require(`./${name}/server`).default;
   return async (req: Request, res: Response) => {
     res.setHeader("Cache-Control", `public, max-age=${year}`);
-    const { props = {}, element = "div" } = await serverRender(req);
+    const {
+      props = {},
+      element = "div",
+      title = "React App",
+    } = await serverRender(req);
     res.render(name, {
       props,
       preloadedHTML: renderToString(element),
-      title: "Notes",
+      title,
     });
   };
 }

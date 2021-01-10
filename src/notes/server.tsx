@@ -16,8 +16,8 @@ export default async (req: Request) => {
       notes: repos,
     };
 
-    return { element: <Notes {...props} />, props };
+    return { element: <Notes {...props} />, props, title: "Notes" };
   } catch (e) {
-    return { element: <div>Server Error</div> };
+    return { element: <div>Server Error</div>, title: "Error" };
   }
 };

@@ -6,14 +6,17 @@ const defaultNotes = [];
 
 export default function Notes({ notes = defaultNotes }: NotesProps) {
   return (
-    <ul>
-      {notes.map(({ id, name, url }) => (
-        <li key={id}>
-          <a href={url} target="_blank">
-            {name}
-          </a>
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul>
+        {notes.map(({ id, name, url }) => (
+          <li key={id}>
+            <a href={url} target="_blank">
+              {name}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <button onClick={() => alert("test")}>test</button>
+    </>
   );
 }

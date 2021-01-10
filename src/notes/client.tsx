@@ -1,4 +1,5 @@
-import { hydrate, render } from "react-dom";
+import { hydrate } from "react-dom";
+import { renderToString } from "react-dom/server";
 import Notes, { NotesProps } from "./Notes";
 
 declare global {
@@ -8,7 +9,6 @@ declare global {
 }
 
 const initialProps = window.__initialProps as NotesProps;
-console.log({ initialProps });
 
 // render(<Notes {...initialProps} />, document.getElementById("root"));
 hydrate(
