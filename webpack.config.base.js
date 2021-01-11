@@ -28,6 +28,7 @@ const clientConfig = {
     chunkFilename: "public/chunks/[name]_[fullhash].js",
   },
   optimization: {
+    emitOnErrors: false,
     minimize: true,
     minimizer: [
       new TerserPlugin({
@@ -54,6 +55,7 @@ const clientConfig = {
           },
         ],
       },
+      { test: /\.ejs$/, loader: "ejs-webpack-loader" },
     ],
   },
   resolve: {
@@ -63,7 +65,7 @@ const clientConfig = {
     ...moduleNames.map(
       ({ name, template }) =>
         new HTMLWebpackPlugin({
-          template: `!!raw-loader!${template}`,
+          template: `${template}`,
           filename: join("templates", `${name}.ejs`),
           chunks: [name],
           base: "/public",
@@ -129,6 +131,7 @@ const serverConfig = {
     chunkFilename: "chunks/[name]_[fullhash].js",
   },
   optimization: {
+    emitOnErrors: false,
     minimize: true,
     minimizer: [
       new TerserPlugin({
