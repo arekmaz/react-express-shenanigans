@@ -72,13 +72,15 @@ const clientConfig = {
     new FaviconsWebpackPlugin({
       logo: resolve(__dirname, "favicon.svg"),
       outputPath: "public/favicons",
-      cache: false,
+      devMode: "webapp", // optional can be 'webapp' or 'light' - 'light' by default
+      cache: true,
       publicPath: "/public/",
       prefix: "favicons",
     }),
     new webpack.BannerPlugin({ banner: "this is a random banner" }),
     new CompressionPlugin({
-      include: /\.js$/,
+      include: /public/,
+      exclude: /\.png$/,
     }),
     new ForkTsCheckerWebpackPlugin(),
   ],
