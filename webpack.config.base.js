@@ -69,18 +69,18 @@ const clientConfig = {
           base: "/public",
         })
     ),
-    new ForkTsCheckerWebpackPlugin(),
+    new FaviconsWebpackPlugin({
+      logo: resolve(__dirname, "favicon.svg"),
+      outputPath: "public/favicons",
+      cache: false,
+      publicPath: "/public/",
+      prefix: "favicons",
+    }),
     new webpack.BannerPlugin({ banner: "this is a random banner" }),
     new CompressionPlugin({
       include: /\.js$/,
     }),
-    new FaviconsWebpackPlugin({
-      logo: resolve(__dirname, "favicon.svg"),
-      cache: true,
-      outputPath: "public/favicons",
-      publicPath: "/public/",
-      prefix: "favicons",
-    }),
+    new ForkTsCheckerWebpackPlugin(),
   ],
 };
 
@@ -139,6 +139,7 @@ const serverConfig = {
       }),
     ],
   },
+  externals: [require("webpack-node-externals")()],
   plugins: [
     new ForkTsCheckerWebpackPlugin(),
     new webpack.BannerPlugin({ banner: "this is a random banner" }),
