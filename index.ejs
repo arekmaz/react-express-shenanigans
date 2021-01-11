@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %></title>
     <script>
-      window.__initialProps = <%-  JSON.stringify(props) %>
+      Object.defineProperty(window,'__initialProps', {value: <%-  JSON.stringify(props) %>, enumerable: false})
     </script>
   </head>
   <body>

@@ -14,6 +14,7 @@ app.set("view engine", "ejs");
 app.set("views", join(__dirname, "..", "templates"));
 app.engine("ejs", require("ejs").__express);
 const year = 31536000 * 1000;
+console.log({ target: globalThis.TARGET });
 
 app.use(
   "/public",
@@ -43,7 +44,7 @@ function renderComponent(name: string) {
   };
 }
 
-app.get("/notes", renderComponent("notes"));
+app.get(["/notes", "/notes/*"], renderComponent("notes"));
 
 app.get("/users", renderComponent("users"));
 

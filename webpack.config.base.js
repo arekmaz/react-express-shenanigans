@@ -81,6 +81,9 @@ const clientConfig = {
       publicPath: "/public/",
       prefix: "favicons",
     }),
+    new webpack.DefinePlugin({
+      "globalThis.TARGET": '"browser"',
+    }),
   ],
 };
 
@@ -139,9 +142,13 @@ const serverConfig = {
       }),
     ],
   },
+  externals: [require('webpack-node-externals')()],
   plugins: [
     new ForkTsCheckerWebpackPlugin(),
     new webpack.BannerPlugin({ banner: "this is a random banner" }),
+    new webpack.DefinePlugin({
+      "globalThis.TARGET": '"node"',
+    }),
   ],
 };
 

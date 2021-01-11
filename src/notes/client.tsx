@@ -1,5 +1,5 @@
+import { BrowserRouter as Router } from "react-router-dom";
 import { hydrate } from "react-dom";
-import { renderToString } from "react-dom/server";
 import Notes, { NotesProps } from "./Notes";
 
 declare global {
@@ -9,10 +9,13 @@ declare global {
 }
 
 const initialProps = window.__initialProps as NotesProps;
+console.log({ initialProps });
 
 // render(<Notes {...initialProps} />, document.getElementById("root"));
 hydrate(
-  <Notes {...initialProps} />,
+  <Router>
+    <Notes {...initialProps} />
+  </Router>,
   // document.querySelector("[data-reactroot]")
   document.querySelector("#root")
 );

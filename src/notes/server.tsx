@@ -1,6 +1,7 @@
 import Notes, { Note, NotesProps } from "./Notes";
 import axios from "axios";
 import { Request } from "express";
+import { StaticRouter } from "react-router-dom";
 
 export default async (req: Request) => {
   try {
@@ -16,8 +17,17 @@ export default async (req: Request) => {
       notes: repos,
     };
 
-    return { element: <Notes {...props} />, props, title: "Notes" };
+    return {
+      element: (
+        <StaticRouter location={req.path}>
+          <Notes {...props} />
+        </StaticRouter>
+      ),
+      props,
+      title: "Notes",
+    };
   } catch (e) {
-    return { element: <div>Server Error</div>, title: "Error" };
+    console.error(e);
+    throw e;
   }
 };

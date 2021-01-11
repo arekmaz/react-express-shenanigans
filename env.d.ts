@@ -4,3 +4,8 @@ declare module "connect-gzip-static" {
   }
   export default gzipStatic;
 }
+
+declare var TARGET: "browser" | "node";
+
+// file must be a module
+export {};

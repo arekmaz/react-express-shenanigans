@@ -23,7 +23,7 @@ export default function Component({ title, url }: ComponentProps) {
           wordWrap: "break-word",
         }}
       >
-        {JSON.stringify(url, null, " ")}
+        {/* {JSON.stringify(url, null, " ")} */}
       </pre>
     </>
   );
